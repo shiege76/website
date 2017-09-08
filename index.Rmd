@@ -20,3 +20,16 @@ WHERE teamID='NYA' and yearID=1927"
 sqldf(query)
 ```
 
+
+
+## ORDER BY
+
+With SQL we can order the rows of our output. For instance, suppose we want to see every instance of a player hitting more than 50 homeruns. But you would like the players with the most homeruns at the top. We could do the following:
+
+```{r}
+query<- "SELECT playerID,teamID,yearID,HR From Batting
+WHERE HR>50
+ORDER BY HR DESC"
+sqldf(query)
+```
+
