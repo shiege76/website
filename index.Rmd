@@ -33,6 +33,7 @@ ORDER BY HR DESC"
 sqldf(query)
 ```
 ## AGGREGATION
+With SQL
 
 ```{r}
 query<-"SELECT playerID,teamID,yearID,SO,AB From Batting
