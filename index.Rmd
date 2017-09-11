@@ -32,4 +32,43 @@ WHERE HR>50
 ORDER BY HR DESC"
 sqldf(query)
 ```
+## AGGREGATION
+
+```{r}
+query<-"SELECT playerID,teamID,yearID,SO,AB From Batting
+WHERE SO<10 and AB>=400
+ORDER BY SO"
+sqldf(query)
+```
+
+```{r}
+query<-"SELECT playerID, HR from Batting
+WHERE playerID='ruthba01'"
+sqldf(query)
+```
+
+```{r}
+query<-"SELECT playerID,sum(HR) From Batting
+WHERE playerID='ruthba01'
+GROUP BY playerID"
+sqldf(query)
+```
+
+```{r}
+query<-"SELECT playerID,sum(HR) From Batting
+GROUP BY playerID
+HAVING sum(HR)>600
+ORDER BY sum(HR) DESC"
+sqldf(query)
+```
+
+```{r}
+query<-"SELECT playerID, avg(HR) From Batting
+GROUP by playerID
+HAVING avg(HR)>=30
+ORDER BY avg(HR) DESC"
+sqldf(query)
+```
+
+
 
