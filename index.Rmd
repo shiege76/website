@@ -1,5 +1,5 @@
 ---
-title: "SQL"
+title: "SQL Website"
 output: html_document
 ---
 
@@ -32,8 +32,6 @@ WHERE HR>50
 ORDER BY HR DESC"
 sqldf(query)
 ```
-## AGGREGATION
-With SQL
 
 ```{r}
 query<-"SELECT playerID,teamID,yearID,SO,AB From Batting
@@ -41,7 +39,9 @@ WHERE SO<10 and AB>=400
 ORDER BY SO"
 sqldf(query)
 ```
+##Aggregation
 
+When using SQL, there might be a time when the data will need to be condensed for the smallest output. Below are examples of how aggregation is utilized. 
 ```{r}
 query<-"SELECT playerID, HR from Batting
 WHERE playerID='ruthba01'"
@@ -71,5 +71,36 @@ ORDER BY avg(HR) DESC"
 sqldf(query)
 ```
 
+##JOINS
 
+When usuing SQL, there are times when you want to "join" multiple tables together. Below are a few examples of utilizing JOINS.
+```{r}
+query<-"SELECT nameFirst,nameLast,name,Batting.yearID,Batting.HR 
+FROM (Batting INNER JOIN Master 
+ON Batting.playerID=Master.playerID) INNER JOIN Teams
+ON Batting.teamID=Teams.teamID AND Batting.yearID=Teams.yearID
+WHERE Batting.playerID='ruthba01'"
+sqldf(query)
+```
+
+```{r}
+query<-"SELECT nameFirst,nameLast,sum(HR)
+FROM Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID
+GROUP BY Batting.playerID
+HAVING sum(HR)>=600
+ORDER BY sum(HR) DESC"
+sqldf(query)
+```
+
+```{r}
+query<-"SELECT nameFirst,nameLast,avg(salary)
+FROM Salaries INNER JOIN Master
+ON Salaries.playerID=Master.playerID
+WHERE nameFirst='Bob'
+GROUP BY Salaries.playerID
+HAVING avg(salary)>1000000
+ORDER BY avg(salary) DESC"
+sqldf(query)
+```
 
